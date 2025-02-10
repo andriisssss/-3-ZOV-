@@ -1,0 +1,152 @@
+#include <Servo.h>
+
+const int PinA1 = 2;  // (ШИМ) вывод 5 соединен с выводом А1
+const int PinA2 = 3;  // (ШИМ) вывод 6 соединен с выводом А2
+const int PinB1 = 4; // (ШИМ) вывод 10 соединен с выводом (pin) B1
+const int PinB2 = 5;  //(ШИМ) вывод 11 соединен с выводом (pin)B2
+byte speed = 250;  // измените это значение (0-255), 
+
+Servo s;
+
+                  //чтобы управлять скоростью вращения двигателей
+void setup() {
+  s.attach(10);
+  pinMode(PinA1, OUTPUT); // установите контакты на выход
+  pinMode(PinA2, OUTPUT);
+  pinMode(PinB1, OUTPUT);
+  pinMode(PinB2, OUTPUT);
+  Serial.begin(9600);
+
+  delay(7000);
+
+  forward(0.4);
+  delay(1000);
+
+  left(90);
+  delay(1000);
+
+  forward(0.65);
+  delay(7000);
+
+  // super();
+  // delay(1000);
+
+  // forward(0.65);
+  // delay(1000);
+
+  // right(90);
+  // delay(1000);
+
+  // forward(0.6);
+  // delay(1000);
+
+  // left(90);
+  // delay(1000);
+
+  // forward(0.4);
+  // delay(7000);
+
+// сбрасываем
+  s.write(180);
+  delay(3000);
+  s.write(50);
+  delay(3000);
+  s.write(90);
+
+}
+void loop() {
+
+  // left(90);
+  // delay(5000);
+
+
+  
+  // forward(0.495);
+  // delay(1000);
+
+  // right(90);
+  // delay(1000);
+
+  // forward(0.855);
+  // delay(1000);
+
+  // left(90);
+  // delay(1000);
+  
+  // forward(0.3);
+  // delay(1000);
+
+  // right(180);
+  // delay(1000);
+
+  // разгрузили
+
+
+}
+void backward(float x) // Вперед.
+{
+  analogWrite(PinA1, 127);
+  analogWrite(PinA2, 0);
+  analogWrite(PinB1, 127);
+  analogWrite(PinB2, 0);
+
+  delay(x*3000);
+
+  STOP();
+
+}
+void forward(float x) //Назад...
+{
+  analogWrite(PinA1, 0);
+  analogWrite(PinA2, 127);
+  analogWrite(PinB1, 0);
+  analogWrite(PinB2, 127);
+
+  delay(x*3000);
+
+  STOP();
+}
+void left(int a) // В левую сторону
+{
+  analogWrite(PinA1, 0);
+  analogWrite(PinA2, 255);
+  analogWrite(PinB1, 255);
+  analogWrite(PinB2, 0);
+
+  delay(a*2.5);
+
+  STOP();
+}
+void right(int a) //В правую сторону
+{
+  analogWrite(PinA1, 255);
+  analogWrite(PinA2, 0);
+  analogWrite(PinB1, 0);
+  analogWrite(PinB2, 255);
+
+  delay(a*2.5);
+
+  STOP();
+}
+void STOP() //Стоп
+{
+  analogWrite(PinA1, 0);
+  analogWrite(PinA2, 0);
+  analogWrite(PinB1, 0);
+  analogWrite(PinB2, 0);
+  delay(2000);
+}
+
+
+
+void super() // В левую сторону
+{
+  analogWrite(PinA1, 0);
+  analogWrite(PinA2, 255);
+  analogWrite(PinB1, 255);
+  analogWrite(PinB2, 0);
+
+  delay(900);
+
+  STOP();
+}
