@@ -1,0 +1,48 @@
+const int motor1Pin1 = 2; 
+const int motor1Pin2 = 3; 
+const int motor2Pin1 = 4; 
+const int motor2Pin2 = 5; 
+
+int motor1Speed = 0; 
+int motor2Speed = 0; 
+
+
+void setup() {
+ 
+  pinMode(motor1Pin1, OUTPUT);
+  pinMode(motor1Pin2, OUTPUT);
+  pinMode(motor2Pin1, OUTPUT);
+  pinMode(motor2Pin2, OUTPUT);
+
+  Serial.begin(9600); 
+}
+
+void loop() {
+  if (Serial.available() >= 4) { 
+   
+    motor1Speed = Serial.read(); 
+    motor2Speed = Serial.read(); 
+
+
+    
+    controlMotor(motor1Pin1, motor1Pin2, motor1Speed);
+
+  
+    controlMotor(motor2Pin1, motor2Pin2, motor2Speed);
+  }
+}
+
+void controlMotor(int pin1, int pin2, int speed) {
+  if (speed > 0 && speed <= 127) { 
+    digitalWrite(pin1, HIGH);
+    digitalWrite(pin2, LOW);
+    analogWrite(pin1, speed * 2); 
+  } else if (speed < 0 && speed >= -127) { 
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, HIGH);
+    analogWrite(pin2, abs(speed) * 2); 
+  } else { 
+    digitalWrite(pin1, LOW);
+    digitalWrite(pin2, LOW);
+  }
+}
